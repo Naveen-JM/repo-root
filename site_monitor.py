@@ -85,7 +85,7 @@ websites = {
     "Japan": "https://japan.progress.im/",
 
    # # 🔥 TEST SITE (always fails)
-    #"TEST-DOWN": "https://httpstat.us/500"
+    "TEST-DOWN": "https://httpstat.us/500"
 }
 
 
