@@ -13,7 +13,7 @@ import os
 SENDER_EMAIL = "multi.countries.automation@gmail.com"
 
 RECEIVER_EMAILS = [
-    "murugannaveen745@gmail.com
+    "murugannaveen745@gmail.com"
 ]
 
 # 🔐 read password from GitHub Secret
@@ -117,3 +117,4 @@ def check_websites():
 
 if __name__ == "__main__":
     check_websites()
+
