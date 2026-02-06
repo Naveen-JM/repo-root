@@ -1,30 +1,11 @@
-name: Site Monitor Fresh
+name: Cron Test
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
-  workflow_dispatch:
+    - cron: '*/2 * * * *'
 
 jobs:
-  monitor:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Show time (proof of schedule)
-        run: date
-
-      - name: Install deps
-        run: pip install -r requirements.txt
-
-      - name: Run monitor
-        run: python site_monitor.py
-        env:
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+      - run: echo "hello"
