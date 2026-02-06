@@ -1,8 +1,11 @@
 name: Website Monitor
 
 on:
+  # run every 5 minutes
   schedule:
-    - cron: "*/5 * * * *"   # every 5 minutes
+    - cron: '*/5 * * * *'
+
+  # allow manual button run
   workflow_dispatch:
 
 jobs:
@@ -10,14 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      # checkout repo
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      # install python
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.12'
 
-      - run: pip install -r requirements.txt
+      # show time (PROOF it ran)
+      - name: Show current time
+        run: date
 
-      - run: python site_monitor.py
+      # show files (debug path issues)
+      - name: List files
+        run: ls -R
+
+      # install deps
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # run monitor
+      - name: Run monitor script
+        run: python site_monitor.py
         env:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
