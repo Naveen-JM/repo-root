@@ -13,7 +13,7 @@ import os
 SENDER_EMAIL = "multi.countries.automation@gmail.com"
 
 RECEIVER_EMAILS = [
-    "murugannaveen745@gmail.com"
+    "naveenjanardhananm@hexaware.com"
 ]
 
 EMAIL_PASSWORD = os.environ["EMAIL_PASSWORD"]
@@ -113,4 +113,5 @@ def check_websites():
 
 if __name__ == "__main__":
     check_websites()
+
 
