@@ -81,7 +81,7 @@ websites = {
     "Japan": "https://japan.progress.im/",
 
     # test site
-    #"TEST-DOWN": "https://httpstat.us/500"
+    "TEST-DOWN": "https://httpstat.us/500"
 }
 
 
@@ -113,5 +113,6 @@ def check_websites():
 
 if __name__ == "__main__":
     check_websites()
+
 
 
