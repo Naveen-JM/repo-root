@@ -79,6 +79,12 @@ websites = {
     "Brazil": "https://brazil.progress.im/",
     "Canada": "https://canada.progress.im/",
     "Japan": "https://japan.progress.im/",
+    'Pylarify' : 'https://pylarify.com/',
+    'Definity' : 'https://www.definityimaging.com/',
+    'Time2See' : 'https://www.time2see.com/',
+    #'Lantheusspect' : 'https://www.lantheusspect.com/',
+    'LantheusLink' : 'https://www.lantheuslink.com/',
+    'Neuraceq' : 'https://neuraceq.com/',
 
     # test site
     #"TEST-DOWN": "https://httpstat.us/500"
@@ -113,6 +119,7 @@ def check_websites():
 
 if __name__ == "__main__":
     check_websites()
+
 
 
 
