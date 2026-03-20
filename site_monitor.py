@@ -13,7 +13,11 @@ import os
 SENDER_EMAIL = "multi.countries.automation@gmail.com"
 
 RECEIVER_EMAILS = [
-    "naveenjanardhananm@hexaware.com"
+    "naveenjanardhananm@hexaware.com",
+    "DileepkumarT@hexaware.com",
+    "AwanishK@hexaware.com",
+    "AnuN@hexaware.com",
+    "SandipC@hexaware.com"
 ]
 
 EMAIL_PASSWORD = os.environ["EMAIL_PASSWORD"]
