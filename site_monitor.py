@@ -84,11 +84,18 @@ websites = {
     "Canada": "https://canada.progress.im/",
     "Japan": "https://japan.progress.im/",
     "Pylarify" : "https://pylarify.com/",
+    "Pylarify-Dev" : "https://pylarifydev.prod.acquia-sites.com/",
+    "Pylarify-Stg" : "https://pylarifystg.prod.acquia-sites.com/",
     "Definity" : "https://www.definityimaging.com/",
+    "Definity-Dev" : "https://definitydev.prod.acquia-sites.com/",
+    "Definity-Stg" : "https://definitystg.prod.acquia-sites.com/",
     "Time2See" : "https://www.time2see.com/",
     #'Lantheusspect' : 'https://www.lantheusspect.com/',
     "LantheusLink" : "https://www.lantheuslink.com/",
     "Neuraceq" : "https://neuraceq.com/",
+    "Neuraceq-Dev" : "https://neuraceqdev.prod.acquia-sites.com/",
+    "Neuraceq-Stage" : "https://neuraceqstage.prod.acquia-sites.com/",
+    
 
     # test site
     #"TEST-DOWN": "https://httpstat.us/500"
