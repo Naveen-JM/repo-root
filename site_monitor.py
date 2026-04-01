@@ -107,7 +107,7 @@ websites = {
     "Neuraceq-Dev" : "https://neuraceqdev.prod.acquia-sites.com/",
     "Neuraceq-Stage" : "https://neuraceqstage.prod.acquia-sites.com/",
     #TRIS-PHARMA SITES
-    "Tris-Pharma" : "https://www.trispharma.com",
+    "Tris-Pharma" : "https://trispharma.com",
     "Tris-Pharma-Stage" : "https://tris.sambrownprojects.com/"
     # test site
     #"TEST-DOWN": "https://httpstat.us/500"
