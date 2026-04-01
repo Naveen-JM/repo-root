@@ -17,7 +17,9 @@ RECEIVER_EMAILS = [
     "DileepkumarT@hexaware.com",
     "AwanishK@hexaware.com",
     "AnuN@hexaware.com",
-    "SandipC@hexaware.com"
+    "SandipC@hexaware.com",
+    "GeorgeC@hexaware.com",
+    "JulianneB@hexaware.com"
 ]
 
 EMAIL_PASSWORD = os.environ["EMAIL_PASSWORD"]
@@ -78,11 +80,20 @@ Action needed.
 # =========================================================
 
 websites = {
+    #LUNDBECK SITES
     "Korea": "https://korea.progress.im/",
+    "Korea-Stage": "https://korea-qa9.progress.im/",
     "Australia": "https://australia.progress.im/",
+    "Australia-Stage": "https://australia-qa9.progress.im/",
     "Brazil": "https://brazil.progress.im/",
+    "Brazil-Stage": "https://brazil-qa9.progress.im/",
     "Canada": "https://canada.progress.im/",
+    "Canada-Stage": "https://canada-qa9.progress.im/",
     "Japan": "https://japan.progress.im/",
+    "Japan-Stage": "https://japan-qa9.progress.im/",
+    "Switzerland":"https://switzerland.progress.im/",
+    "Switzerland-Stage":"https://switzerland-qa9.progress.im/",
+    #LANTHEUS SITES
     "Pylarify" : "https://pylarify.com/",
     "Pylarify-Dev" : "https://pylarifydev.prod.acquia-sites.com/",
     "Pylarify-Stg" : "https://pylarifystg.prod.acquia-sites.com/",
@@ -95,8 +106,9 @@ websites = {
     "Neuraceq" : "https://neuraceq.com/",
     "Neuraceq-Dev" : "https://neuraceqdev.prod.acquia-sites.com/",
     "Neuraceq-Stage" : "https://neuraceqstage.prod.acquia-sites.com/",
-    
-
+    #TRIS-PHARMA SITES
+    "Tris-Pharma" : "https://www.trispharma.com",
+    "Tris-Pharma-Stage" : "https://tris.sambrownprojects.com/"
     # test site
     #"TEST-DOWN": "https://httpstat.us/500"
 }
