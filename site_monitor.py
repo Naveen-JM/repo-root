@@ -17,9 +17,6 @@ RECEIVER_EMAILS = [
     "DileepkumarT@hexaware.com",
     "AwanishK@hexaware.com",
     "AnuN@hexaware.com",
-    "SandipC@hexaware.com",
-    "GeorgeC@hexaware.com",
-    "JulianneB@hexaware.com"
 ]
 
 EMAIL_PASSWORD = os.environ["EMAIL_PASSWORD"]
