@@ -14,9 +14,6 @@ SENDER_EMAIL = "multi.countries.automation@gmail.com"
 
 RECEIVER_EMAILS = [
     "naveenjanardhananm@hexaware.com",
-    "DileepkumarT@hexaware.com",
-    "AwanishK@hexaware.com",
-    "AnuN@hexaware.com",
 ]
 
 EMAIL_PASSWORD = os.environ["EMAIL_PASSWORD"]
@@ -104,7 +101,7 @@ websites = {
     "Neuraceq-Dev" : "https://neuraceqdev.prod.acquia-sites.com/",
     "Neuraceq-Stage" : "https://neuraceqstage.prod.acquia-sites.com/",
     #TRIS-PHARMA SITES
-    "Tris-Pharma" : "https://trispharma.com/robots.txt",
+    "Tris-Pharma" : "https://trispharma.com/",
     "Tris-Pharma-Stage" : "https://tris.sambrownprojects.com/"
     # test site
     #"TEST-DOWN": "https://httpstat.us/500"
