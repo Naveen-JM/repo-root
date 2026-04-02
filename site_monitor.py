@@ -14,6 +14,9 @@ SENDER_EMAIL = "multi.countries.automation@gmail.com"
 
 RECEIVER_EMAILS = [
     "naveenjanardhananm@hexaware.com",
+    "DileepkumarT@hexaware.com",
+    "AwanishK@hexaware.com",
+    "AnuN@hexaware.com",
 ]
 
 EMAIL_PASSWORD = os.environ["EMAIL_PASSWORD"]
