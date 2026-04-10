@@ -127,7 +127,7 @@ def check_websites():
     
     for name, url in websites.items():
         try:
-            response = requests.get(url, headers=headers, timeout=15)
+            response = requests.get(url, headers=headers, timeout=20)
             status = response.status_code
 
             if status == 200:
