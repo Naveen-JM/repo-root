@@ -104,42 +104,39 @@ websites = {
     "Neuraceq-Dev" : "https://neuraceqdev.prod.acquia-sites.com/",
     "Neuraceq-Stage" : "https://neuraceqstage.prod.acquia-sites.com/",
     #TRIS-PHARMA SITES
-    #"Tris-Pharma" : "https://trispharma.com/",
-    #"Tris-Pharma-Stage" : "https://tris.sambrownprojects.com/"
+    "Tris-Pharma" : "https://trispharma.com/",
+    "Tris-Pharma-Stage" : "https://tris.sambrownprojects.com/"
     # test site
     #"TEST-DOWN": "https://httpstat.us/500"
 }
-
 
 # =========================================================
 # CHECK LOGIC (STRICT 200 ONLY)
 # =========================================================
 
 def check_websites():
+    session = requests.Session()
+
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Connection": "keep-alive",
     }
-    
+
     for name, url in websites.items():
         try:
-            response = requests.get(url, headers=headers, timeout=20)
-            status = response.status_code
+            response = session.get(url, headers=headers, timeout=20, allow_redirects=True)
 
-            if status == 200:
+            if response.status_code == 200:
                 logging.info(f"{name} OK (200)")
             else:
-                logging.error(f"{name} DOWN ({status})")
-                send_email(name, url, status)
+                logging.error(f"{name} DOWN ({response.status_code})")
+                send_email(name, url, response.status_code)
 
         except requests.RequestException as e:
             logging.error(f"{name} unreachable: {e}")
             send_email(name, url, "No response")
-
 
 # =========================================================
 # ENTRY POINT
