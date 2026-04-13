@@ -1,5 +1,5 @@
 import smtplib
-import requests
+import subprocess
 from email.message import EmailMessage
 from datetime import datetime
 import pytz
@@ -73,11 +73,10 @@ Action needed.
 
 
 # =========================================================
-# SITES TO MONITOR (UPDATED)
+# SITES TO MONITOR
 # =========================================================
 
 websites = {
-    #LUNDBECK SITES
     "Korea": "https://korea.progress.im/",
     "Korea-Stage": "https://korea-qa9.progress.im/",
     "Australia": "https://australia.progress.im/",
@@ -88,55 +87,49 @@ websites = {
     "Canada-Stage": "https://canada-qa9.progress.im/",
     "Japan": "https://japan.progress.im/",
     "Japan-Stage": "https://japan-qa9.progress.im/",
-    "Switzerland":"https://switzerland.progress.im/",
-    "Switzerland-Stage":"https://switzerland-qa9.progress.im/",
-    #LANTHEUS SITES
-    "Pylarify" : "https://pylarify.com/",
-    "Pylarify-Dev" : "https://pylarifydev.prod.acquia-sites.com/",
-    "Pylarify-Stg" : "https://pylarifystg.prod.acquia-sites.com/",
-    "Definity" : "https://www.definityimaging.com/",
-    "Definity-Dev" : "https://definitydev.prod.acquia-sites.com/",
-    "Definity-Stg" : "https://definitystg.prod.acquia-sites.com/",
-    "Time2See" : "https://www.time2see.com/",
-    #'Lantheusspect' : 'https://www.lantheusspect.com/',
-    "LantheusLink" : "https://www.lantheuslink.com/",
-    "Neuraceq" : "https://neuraceq.com/",
-    "Neuraceq-Dev" : "https://neuraceqdev.prod.acquia-sites.com/",
-    "Neuraceq-Stage" : "https://neuraceqstage.prod.acquia-sites.com/",
-    #TRIS-PHARMA SITES
-    "Tris-Pharma" : "https://trispharma.com/",
-    "Tris-Pharma-Stage" : "https://tris.sambrownprojects.com/"
-    # test site
-    #"TEST-DOWN": "https://httpstat.us/500"
+    "Switzerland": "https://switzerland.progress.im/",
+    "Switzerland-Stage": "https://switzerland-qa9.progress.im/",
+    "Pylarify": "https://pylarify.com/",
+    "Pylarify-Dev": "https://pylarifydev.prod.acquia-sites.com/",
+    "Pylarify-Stg": "https://pylarifystg.prod.acquia-sites.com/",
+    "Definity": "https://www.definityimaging.com/",
+    "Definity-Dev": "https://definitydev.prod.acquia-sites.com/",
+    "Definity-Stg": "https://definitystg.prod.acquia-sites.com/",
+    "Time2See": "https://www.time2see.com/",
+    "LantheusLink": "https://www.lantheuslink.com/",
+    "Neuraceq": "https://neuraceq.com/",
+    "Neuraceq-Dev": "https://neuraceqdev.prod.acquia-sites.com/",
+    "Neuraceq-Stage": "https://neuraceqstage.prod.acquia-sites.com/",
+    "Tris-Pharma": "https://trispharma.com/",
+    "Tris-Pharma-Stage": "https://tris.sambrownprojects.com/"
 }
 
+
 # =========================================================
-# CHECK LOGIC (STRICT 200 ONLY)
+# CHECK LOGIC (STRICT 200 ONLY USING CURL)
 # =========================================================
 
 def check_websites():
-    session = requests.Session()
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Connection": "keep-alive",
-    }
-
     for name, url in websites.items():
         try:
-            response = session.get(url, headers=headers, timeout=20, allow_redirects=True)
+            result = subprocess.run(
+                ["curl", "-L", "-o", "/dev/null", "-s", "-w", "%{http_code}", url],
+                capture_output=True,
+                text=True
+            )
 
-            if response.status_code == 200:
+            status = result.stdout.strip()
+
+            if status == "200":
                 logging.info(f"{name} OK (200)")
             else:
-                logging.error(f"{name} DOWN ({response.status_code})")
-                send_email(name, url, response.status_code)
+                logging.error(f"{name} DOWN ({status})")
+                send_email(name, url, status)
 
-        except requests.RequestException as e:
+        except Exception as e:
             logging.error(f"{name} unreachable: {e}")
             send_email(name, url, "No response")
+
 
 # =========================================================
 # ENTRY POINT
