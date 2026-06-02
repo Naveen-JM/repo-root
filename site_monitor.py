@@ -1,13 +1,13 @@
 import smtplib
 import subprocess
-from email.mime.text import MIMEText  # ← SIMPLIFIED EMAIL
+from email.mime.text import MIMEText
 from datetime import datetime
 import pytz
 import logging
 import os
 
 # =========================================================
-# EMAIL CONFIG (UNCHANGED)
+# EMAIL CONFIG
 # =========================================================
 SENDER_EMAIL = "multi.countries.automation@gmail.com"
 RECEIVER_EMAILS = [
@@ -16,20 +16,26 @@ RECEIVER_EMAILS = [
     "AwanishK@hexaware.com",
     "AnuN@hexaware.com",
 ]
+
 EMAIL_PASSWORD = os.environ["EMAIL_PASSWORD"]
+
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 TIMEZONE = pytz.timezone("Asia/Kolkata")
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s"
+)
 
 # =========================================================
-# FIXED EMAIL (SIMPLE - NO BUGS)
+# EMAIL ALERT
 # =========================================================
 def send_email(site_name, url, status):
     now = datetime.now(TIMEZONE).strftime("%Y-%m-%d %H:%M:%S")
-    
+
     subject = f"🚨 Website Down: {site_name} - {status}"
+
     body = f"""
 Time: {now}
 Site: {site_name}
@@ -38,23 +44,30 @@ Status: {status}
 
 Action needed.
 """
-    
-    msg = MIMEText(body)  # ← SIMPLE FIX
-    msg['Subject'] = subject
-    msg['From'] = SENDER_EMAIL
-    msg['To'] = ", ".join(RECEIVER_EMAILS)
+
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = SENDER_EMAIL
+    msg["To"] = ", ".join(RECEIVER_EMAILS)
 
     try:
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
             server.starttls()
             server.login(SENDER_EMAIL, EMAIL_PASSWORD)
-            server.sendmail(SENDER_EMAIL, RECEIVER_EMAILS, msg.as_string())  # ← SIMPLE
+            server.sendmail(
+                SENDER_EMAIL,
+                RECEIVER_EMAILS,
+                msg.as_string()
+            )
+
         logging.warning(f"ALERT SENT → {site_name}")
+
     except Exception as e:
         logging.error(f"Email failed: {e}")
 
+
 # =========================================================
-# YOUR SITES (UNCHANGED)
+# WEBSITES
 # =========================================================
 websites = {
     "Korea": "https://korea.progress.im/",
@@ -85,33 +98,59 @@ websites = {
 }
 
 # =========================================================
-# FIXED CHECK (2 LINES CHANGED)
+# WEBSITE CHECKER
 # =========================================================
 def check_websites():
     for name, url in websites.items():
         try:
             result = subprocess.run(
-                ["curl", "-L", "-o", "/dev/null", "-s", "-w", "%{http_code}", url],
+                [
+                    "curl",
+                    "-L",
+                    "--connect-timeout", "15",
+                    "--max-time", "30",
+                    "-A",
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 (KHTML, like Gecko) "
+                    "Chrome/125.0.0.0 Safari/537.36",
+                    "-o", "/dev/null",
+                    "-s",
+                    "-w", "%{http_code}",
+                    url,
+                ],
                 capture_output=True,
                 text=True,
-                timeout=30  # ← ADDED: Prevent hanging
+                timeout=35,
             )
 
             status = result.stdout.strip()
 
-            # ✅ FIXED: Allow redirects (301,302,307) + only alert 5xx/4xx
-            if status in ["200", "301", "302", "307"]:  # ← 1 LINE CHANGE
+            # Consider site UP if reachable
+            if (
+                status.startswith("2")
+                or status.startswith("3")
+                or status == "403"
+            ):
                 logging.info(f"{name} OK ({status})")
+
+            # Alert only for real failures
             else:
                 logging.error(f"{name} DOWN ({status})")
                 send_email(name, url, status)
 
+        except subprocess.TimeoutExpired:
+            logging.error(f"{name} TIMEOUT")
+            send_email(name, url, "TIMEOUT")
+
         except Exception as e:
-            logging.error(f"{name} unreachable: {e}")
-            send_email(name, url, "TIMEOUT/ERROR")
+            logging.error(f"{name} ERROR: {e}")
+            send_email(name, url, f"ERROR: {e}")
+
 
 # =========================================================
-# RUN
+# MAIN
 # =========================================================
 if __name__ == "__main__":
+    logging.info("Starting website monitoring...")
     check_websites()
+    logging.info("Website monitoring completed.")
