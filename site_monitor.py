@@ -94,9 +94,9 @@ websites = {
     "Neuraceq-Dev": "https://neuraceqdev.prod.acquia-sites.com/",
     "Neuraceq-Stage": "https://neuraceqstage.prod.acquia-sites.com/",
     "Tris-Pharma": "https://trispharma.com/",
-    "Tris-Pharma-Stage": "https://tris.sambrownprojects.com/"
-    "Novartis-Dev": "https://dev.fabhalta-locator.com/"
-    "Novartis-Stage": "https://uat.fabhalta-locator.com/"
+    "Tris-Pharma-Stage": "https://tris.sambrownprojects.com/",
+    "Novartis-Dev": "https://dev.fabhalta-locator.com/",
+    "Novartis-Stage": "https://uat.fabhalta-locator.com/",
     "Novartis-Prod": "https://fabhalta-locator.com/"
 }
 
